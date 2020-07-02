@@ -36,4 +36,4 @@ ENV PATH "$PATH:/root/.composer/vendor/bin"
 
 COPY ./php-ini-overrides.ini /etc/php/7.3/fpm/php.ini
 
-
+RUN apt-get install -y nodejs npm
