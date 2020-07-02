@@ -1,0 +1,40 @@
+version: '2'
+
+volumes:
+  sandxob_data:
+    driver: local
+
+services:
+
+  database:
+    container_name: database
+    image: mysql:5.7
+    ports:
+      - "33060:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=sandbox_db
+      - MYSQL_USER=sandbox
+      - MYSQL_PASSWORD=sandbox
+    volumes:
+      - sandxob_data:/var/lib/mysql
+
+  webserver:
+    image: nginx
+    container_name: webserver
+    working_dir: /application
+    volumes:
+      - ./application:/application
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./logs/nginx:/var/log/nginx
+    ports:
+      - "80:80"
+
+  php-fpm:
+    build: ./docker/php-fpm
+    container_name: php-fpm
+    working_dir: /application
+    volumes:
+      - ./application:/application
+      - ./logs/application:/application/storage/logs
+      - ./docker/php-fpm/php-ini-overrides.ini:/etc/php/7.3/fpm/conf.d/99-overrides.ini
