@@ -27,3 +27,8 @@ php artisan key:generate
 
 
 laravel is ready on http://localhost
+
+### branches
+
+- master (just docker-compose and index.php, a phpinfo)
+- laravel-7 (clean laravel-7 installation)
