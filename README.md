@@ -9,16 +9,21 @@ just a dockerized skeleton/sandbox to develop laravel apps
 
 ### usage
 
-- git fork o download  to make you own laravel project
+- fork o download the repo to make you own laravel project
 
-- then
+- then raise docker containers (nginx, php, mysql)
 ```
 docker-compose up -d
+```
+
+- then enter in php-fpm container and download preferred version of laravel
+```
 docker-compose exec php-fpm bash
-```
 
-- in php-fpm container you can run 
-```
 laravel new
+cp .env.example .env
+php artisan key:generate
 ```
 
+
+laravel is ready on http://localhost
