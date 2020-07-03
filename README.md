@@ -51,8 +51,81 @@ php artisan migrate
 ```
 
 
+### crud 
+
+making making model & create table, generating controller, register routes, 
+
+```
+docker-compose exec php-fpm bash
+
+# generating model
+php artisan make:model Contact --migration
+
+# migrations/xxxxx_create_contacts_table.php
+.. adding
+$table->string('first_name');
+$table->string('last_name');
+$table->string('email');
+$table->string('job_title');
+$table->string('city');
+$table->string('country');
+.. then
+php artisan migrate
+
+# in Contact.php model
+
+...
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'email',
+        'city',
+        'country',
+        'job_title'       
+    ];
+...
+
+php artisan make:controller ContactController --resource
+
+# routes/web.php
+Route::resource('contacts', 'ContactController');
+
+# routes/api.php
+Route::apiResource('contacts', 'ContactController');
+
+# in ContactController.php
+
+.. store method with validation & new model
+ public function store(Request $request) {
+    $request->validate([
+        'first_name'=>'required',
+        'last_name'=>'required',
+        'email'=>'required'
+    ]);
+
+    $contact = new Contact([
+        'first_name' => $request->get('first_name'),
+        'last_name' => $request->get('last_name'),
+        'email' => $request->get('email'),
+        'job_title' => $request->get('job_title'),
+        'city' => $request->get('city'),
+        'country' => $request->get('country')
+    ]);
+    $contact->save();
+    return redirect('/contacts')->with('success', 'Contact saved!');
+ }
+ 
+ public function create()
+ {
+     return view('contacts.create');
+ }
+```
+
+
+
 ### branches
 
 - master (just docker-compose and index.php, a phpinfo)
 - laravel-7 (clean laravel-7 installation)
+- laravel-7-crud (laravel-7 crud)
 
