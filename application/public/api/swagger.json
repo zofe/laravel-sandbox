@@ -16,7 +16,7 @@
                 }
             }
         },
-        "/api/v1/contacts/id": {
+        "/api/v1/contacts/": {
             "get": {
                 "operationId": "App\\Http\\Controllers\\Api\\V1\\ContactController::show",
                 "parameters": [

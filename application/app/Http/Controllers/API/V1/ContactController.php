@@ -73,7 +73,7 @@ class ContactController extends Controller
 
     /**
      * @OA\GET(
-     *      path="/api/v1/contacts/id",
+     *      path="/api/v1/contacts/",
      *      @OA\Parameter(name="id", in="path", description="contact id" ,required=true, @OA\Schema(type="string",default="1"), style="form"),
      *      @OA\Response(
      *          response=200,
