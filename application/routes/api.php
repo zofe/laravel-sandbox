@@ -18,4 +18,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('contacts', 'ContactController');
+
+Route::prefix('v1')->middleware([])->group(function () {
+
+    Route::namespace('Api\V1')->group(function () {
+        Route::apiResource('contacts', 'ContactController');
+    });
+
+});
+
