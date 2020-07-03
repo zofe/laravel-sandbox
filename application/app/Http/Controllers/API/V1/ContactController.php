@@ -3,11 +3,29 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Contact;
+use App\Http\Controllers\Api\V1\Transformer\ContactTransformer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use League\Fractal\Manager;
+use League\Fractal\Resource\Collection;
+use League\Fractal\Resource\Item;
+
 class ContactController extends Controller
 {
+    /**
+     * @var Manager
+     */
+    private $fractal;
+
+
+    public function __construct(
+        Manager $fractal
+    ) {
+        $this->fractal = $fractal;
+        $this->fractal->setSerializer(new \League\Fractal\Serializer\ArraySerializer());
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +34,8 @@ class ContactController extends Controller
     public function index()
     {
         $contacts = Contact::all();
-
+        $contacts = new Collection($contacts, new ContactTransformer());
+        $contacts = $this->fractal->createData($contacts);
         return response()->json(['contacts' => $contacts]);
     }
 
@@ -56,7 +75,8 @@ class ContactController extends Controller
     public function show($id)
     {
         $contact = Contact::find($id);
-
+        $contact = new Item($contact, new ContactTransformer);
+        $contact = $this->fractal->createData($contact);
         return response()->json(['contact' => $contact]);
     }
 
