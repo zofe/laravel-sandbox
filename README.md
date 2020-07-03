@@ -29,6 +29,28 @@ php artisan key:generate
 laravel is ready on http://localhost
 
 
+### optional steps (from php-fpm container)
+frontend stack (vue,scss compiler,etc..)
+```
+docker-compose exec php-fpm bash
+npm i
+```
+
+migrations (users, auth/login)
+```
+# laravel .env :
+DB_CONNECTION=mysql
+DB_HOST=database
+DB_PORT=3306
+DB_DATABASE=sandbox_db
+DB_USERNAME=sandbox
+DB_PASSWORD=sandbox
+
+# run migrations
+php artisan migrate
+```
+
+
 ### branches
 
 - master (just docker-compose and index.php, a phpinfo)
