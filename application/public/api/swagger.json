@@ -1,0 +1,43 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "laravel sandbox API",
+        "description": "just a sandbox",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/v1/contacts": {
+            "get": {
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\ContactController::index",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/v1/contacts/id": {
+            "get": {
+                "operationId": "App\\Http\\Controllers\\Api\\V1\\ContactController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "contact id",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string",
+                            "default": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        }
+    }
+}

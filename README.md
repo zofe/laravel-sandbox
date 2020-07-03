@@ -121,6 +121,11 @@ Route::apiResource('contacts', 'ContactController');
  }
 ```
 
+### api & swagger
+```
+./vendor/bin/openapi --output ./public/api/swagger.json --exclude tests --exclude storage --exclude vendor ./app/Http/Controllers/API/
+
+```
 
 
 ### branches

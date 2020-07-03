@@ -26,10 +26,15 @@ class ContactController extends Controller
         $this->fractal->setSerializer(new \League\Fractal\Serializer\ArraySerializer());
 
     }
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\GET(
+     *      path="/api/v1/contacts",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation"
+     *       )
+     * )
      */
     public function index()
     {
@@ -67,10 +72,14 @@ class ContactController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @OA\GET(
+     *      path="/api/v1/contacts/id",
+     *      @OA\Parameter(name="id", in="path", description="contact id" ,required=true, @OA\Schema(type="string",default="1"), style="form"),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation"
+     *       )
+     * )
      */
     public function show($id)
     {
