@@ -20,7 +20,9 @@ docker-compose up -d
 ```
 docker-compose exec php-fpm bash
 
-laravel new
+laravel new      #or alternatively:
+composer create-project laravel/laravel . "7.*" --prefer-dist
+
 cp .env.example .env
 php artisan key:generate
 ```
@@ -32,3 +34,4 @@ laravel is ready on http://localhost
 
 - master (just docker-compose and index.php, a phpinfo)
 - laravel-7 (clean laravel-7 installation)
+composer create-project laravel/laravel . "6.*" --prefer-dist
