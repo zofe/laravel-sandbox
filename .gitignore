@@ -2,3 +2,8 @@
 /logs
 .DS_Store
 .env
+
+/application/vendor
+/application/node_modules
+/application/public/storage
+/application/public/uploads/*
