@@ -1,0 +1,13 @@
+@servers(['web' => 'root@rapyd.com'])
+
+@task('deploy')
+    cd /home/zofe/public_html/rapyd.com/5.6
+    git pull origin master
+@endtask
+
+@task('rapyd-update')
+cd /home/zofe/public_html/rapyd.com/5.6
+composer update zofe/rapyd
+@endtask
+
+

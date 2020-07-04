@@ -1,0 +1,40 @@
+<IfModule mod_headers.c>
+  Header set Cache-Control "no-cache, no-store, must-revalidate"
+  Header set Pragma "no-cache"
+  Header set Expires 0
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    Order Allow,Deny
+    Deny from 188.143.232.0/24
+    Allow from all
+
+    # vecchia rotta wiki
+    RewriteRule ^demo(.*)$ /rapyd-demo$1                [L,R=301]
+
+    # timthumb per i post
+    RewriteRule ^thumb/(\d+)x(\d+)/f(\d)/q(\d{2})/(.*)  /assets/timthumb.php?src=$5&w=$1&h=$2&f=$3&q=$4 [L]
+    RewriteRule ^thumb/(\d+)x(\d+)/f(\d)/(.*)           /assets/timthumb.php?src=$4&w=$1&h=$2&f=$3 [L]
+    RewriteRule ^thumb/(\d+)x(\d+)/(.*)                 /assets/timthumb.php?src=$3&w=$1&h=$2 [L]
+
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>
